@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Premium Shop - Mega Menu</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --dark-bg: #0f172a;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --accent-red: #ef4444;
+            --border-light: #f1f5f9;
+            --shadow-subtle: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --shadow-mega: 0 25px 50px -12px rgba(15, 23, 42, 0.15);
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* Top Announcement Bar */
+        .top-bar {
+            background: linear-gradient(90deg, #1e293b, #0f172a);
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Header Navigation */
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        /* Brand Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        /* Main Nav Menu */
+        .menu {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            height: 100%;
+            align-items: center;
+        }
+
+        .menu-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-link {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .menu-link i.arrow {
+            font-size: 0.75rem;
+            transition: var(--transition);
+            color: #94a3b8;
+        }
+
+        .menu-item:hover .menu-link {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .menu-item:hover .menu-link i.arrow {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        /* Badge Tag */
+        .badge-hot {
+            background: #ef4444;
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-left: 4px;
+        }
+
+        /* Mega Menu Dropdown */
+        .mega-menu {
+            position: static;
+        }
+
+        .mega-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-mega);
+            border: 1px solid var(--border-light);
+            border-top: 3px solid var(--primary);
+            
+            /* Hidden by default with smooth fade effect */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) 300px;
+            gap: 24px;
+            pointer-events: none;
+        }
+
+        .mega-menu:hover .mega-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Mega Menu Columns */
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-light);
+            margin-bottom: 4px;
+        }
+
+        .column-header i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .column-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .column-links {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .column-links a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 0.9rem;
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .column-links a:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+            padding-left: 14px;
+        }
+
+        .column-links a .tag {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #e0e7ff;
+            color: #4338ca;
+            font-weight: 500;
+        }
+
+        /* Promotion Box in Mega Menu */
+        .promo-card {
+            background: linear-gradient(145deg, #1e1b4b, #312e81);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(49, 46, 129, 0.2);
+        }
+
+        .promo-card::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .promo-badge {
+            align-self: flex-start;
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        .promo-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .promo-card p {
+            font-size: 0.82rem;
+            color: #c7d2fe;
+            margin-bottom: 16px;
+        }
+
+        .promo-btn {
+            background: #ffffff;
+            color: #312e81;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .promo-btn:hover {
+            background: #e0e7ff;
+            transform: translateY(-2px);
+        }
+
+        /* Right Nav Actions */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #475569;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .action-btn .badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.65rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            border: 2px solid white;
+        }
+
+        /* Mobile Toggle Icon */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.4rem;
+            color: var(--text-main);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Banner Hero Section Demonstration */
+        .hero-section {
+            max-width: 1280px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 24px;
+            padding: 60px 40px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+        }
+
+        /* Responsive Design Rules */
+        @media (max-width: 1024px) {
+            .nav-container {
+                position: relative;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .menu {
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                height: auto;
+                padding: 16px;
+                gap: 0;
+                box-shadow: var(--shadow-mega);
+                border-bottom: 1px solid var(--border-light);
+                display: none;
+            }
+
+            .menu.active {
+                display: flex;
+            }
+
+            .menu-item {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .menu-link {
+                width: 100%;
+                justify-content: space-between;
+                padding: 14px 16px;
+            }
+
+            .mega-content {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                border-left: 2px solid var(--primary);
+                padding: 12px 16px;
+                grid-template-columns: 1fr;
+                display: none;
+            }
+
+            .mega-menu.active .mega-content {
+                display: grid;
+            }
+
+            .hero-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Info Bar -->
+    <div class="top-bar">
+        <div><i class="fa-solid fa-truck-fast"></i> จัดส่งฟรีทั่วประเทศ เมื่อช้อปครบ 1,500 บาท</div>
+        <div>
+            <a href="#"><i class="fa-solid fa-headset"></i> ศูนย์บริการลูกค้า</a> | 
+            <a href="#"><i class="fa-solid fa-location-dot"></i> ค้นหาสาขา</a>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <!-- Brand Logo -->
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-microchip"></i></div>
+                <div class="logo-text">IT <span>SHOP</span></div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav>
+                <ul class="menu" id="navMenu">
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">หน้าแรก</a>
+                    </li>
+
+                    <!-- Mega Menu Parent Item -->
+                    <li class="menu-item mega-menu" id="megaMenuToggle">
+                        <a href="#" class="menu-link">
+                            หมวดหมู่สินค้า <i class="fa-solid fa-chevron-down arrow"></i>
+                        </a>
+
+                        <!-- Mega Menu Container -->
+                        <div class="mega-content">
+                            
+                            <!-- Col 1: Computers -->
+                            <div class="column">
+                                <div class="column-header">
+                                    <i class="fa-solid fa-desktop"></i>
+                                    <h3>คอมพิวเตอร์</h3>
+                                </div>
+                                <div class="column-links">
+                                    <a href="#">Desktop PC <span class="tag">นิยม</span></a>
+                                    <a href="#">Gaming PC</a>
+                                    <a href="#">Mini PC</a>
+                                    <a href="#">Workstation</a>
+                                    <a href="#">All-in-One PC</a>
+                                </div>
+                            </div>
+
+                            <!-- Col 2: Notebooks -->
+                            <div class="column">
+                                <div class="column-header">
+                                    <i class="fa-solid fa-laptop"></i>
+                                    <h3>โน้ตบุ๊ก</h3>
+                                </div>
+                                <div class="column-links">
+                                    <a href="#">Gaming Notebook <span class="tag">HOT</span></a>
+                                    <a href="#">Business Notebook</a>
+                                    <a href="#">Ultrabook Thin & Light</a>
+                                    <a href="#">MacBook Pro / Air</a>
+                                    <a href="#">Creator Notebook</a>
+                                </div>
+                            </div>
+
+                            <!-- Col 3: Networking -->
+                            <div class="column">
+                                <div class="column-header">
+                                    <i class="fa-solid fa-wifi"></i>
+                                    <h3>อุปกรณ์เครือข่าย</h3>
+                                </div>
+                                <div class="column-links">
+                                    <a href="#">Wi-Fi 7 / 6E Router</a>
+                                    <a href="#">Network Switch</a>
+                                    <a href="#">Mesh Wi-Fi System</a>
+                                    <a href="#">Access Point</a>
+                                    <a href="#">NAS Storage</a>
+                                </div>
+                            </div>
+
+                            <!-- Col 4: Accessories -->
+                            <div class="column">
+                                <div class="column-header">
+                                    <i class="fa-solid fa-gamepad"></i>
+                                    <h3>อุปกรณ์เสริม</h3>
+                                </div>
+                                <div class="column-links">
+                                    <a href="#">Mechanical Keyboard</a>
+                                    <a href="#">Gaming Mouse</a>
+                                    <a href="#">Wireless Headset</a>
+                                    <a href="#">4K Webcam</a>
+                                    <a href="#">Gaming Monitor</a>
+                                </div>
+                            </div>
+
+                            <!-- Col 5: Promo Card Banner -->
+                            <div class="promo-card">
+                                <div>
+                                    <span class="promo-badge">🔥 EXCLUSIVE OFFER</span>
+                                    <h3>Mid-Year Super Sale</h3>
+                                    <p>ยกระดับขีดความสามารถการทำงานและเล่นเกมด้วยโน้ตบุ๊กประสิทธิภาพสูง ลดสูงสุด 50%</p>
+                                </div>
+                                <button class="promo-btn">
+                                    ช้อปเลยตอนนี้ <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">โปรโมชั่น <span class="badge-hot">SALE</span></a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">บทความ & รีวิว</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">ติดต่อเรา</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Right Actions (Search, Cart, Account) -->
+            <div class="nav-actions">
+                <button class="action-btn" title="ค้นหา"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="action-btn" title="ตะกร้าสินค้า">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="badge">3</span>
+                </button>
+                <button class="action-btn" title="บัญชีผู้ใช้"><i class="fa-regular fa-user"></i></button>
+                
+                <!-- Mobile Hamburger Menu Button -->
+                <button class="mobile-toggle" id="mobileToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content Preview -->
+    <main class="hero-section">
+        <div class="hero-banner">
+            <div class="hero-text">
+                <h1>นวัตกรรมไอที ตอบโจทย์ทุกการทำงาน</h1>
+                <p>พบกับสินค้าคอมพิวเตอร์ โน้ตบุ๊ก และอุปกรณ์เกมมิ่งเกียร์รุ่นใหม่ล่าสุด พร้อมประกันศูนย์ไทย 100%</p>
+                <a href="#" class="btn-primary">สำรวจสินค้าทั้งหมด <i class="fa-solid fa-chevron-right" style="margin-left:8px;"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Simple JS for Mobile Toggle Functionality -->
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+        const megaMenuToggle = document.getElementById('megaMenuToggle');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Toggle mega menu on mobile click
+        megaMenuToggle.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024) {
+                megaMenuToggle.classList.toggle('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
